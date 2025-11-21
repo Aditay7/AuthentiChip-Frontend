@@ -1,0 +1,111 @@
+
+SMART INDIA HACKATHON 2025
+Problem Statement ID: 25162 Problem Title: Automated Optical Inspection (AOI) Based IC Marking to Identify Fake Marking Theme: Smart Automation PS Category: Software Team ID: 64168 Team Name: HackFit Fam
+
+AuthentiChip : Verification Automated Digitally
+Proposed Solution
+The AuthentiChip tool automates and improves accuracy in IC authenticity verification.
+The system enables QA personnel, engineers, and supply-chain managers to verify electronic components digitally using any camera-enabled device, without manual or specialized inspection tools.
+The app uses:
+* Fine-tuned OCR models to analyze IC marking images
+* Web scraping & pattern matching to fetch OEM datasheet information
+* Automated comparison to detect mismatches and flag fake components
+
+Uniqueness
+✔ Visual Anomaly Detection Engine
+Detects counterfeit anomalies in fonts, logos, surface texture — beyond simple OCR.
+✔ Generative Adversarial Network (GAN) for Authenticity Score
+GAN model generates a probabilistic authenticity score to detect unseen counterfeit patterns.
+✔ Cryptographic Component Passport
+Logs each component’s unique cryptographic hash into a distributed ledger for immutable tracking.
+✔ Edge-Optimized Inferencing Model
+A compressed AI model runs on edge devices for fast, low-latency on-site verification.
+✔ API-First Microservice Design
+Lightweight, plug-and-play REST API that integrates with any factory QA system.
+
+TECHNICAL APPROACH
+Image Processing
+* OpenCV for image capture, cleaning, enhancement, and perspective correction.
+AI Model Framework
+* PyTorch for GAN and anomaly detection model creation, training, and deployment.
+API Server
+* FastAPI for a high-performance backend serving AI inference.
+Web Scraping
+* BeautifulSoup + PyMuPDF (fitz) for scraping and parsing official OEM datasheets.
+Backend Logic
+* Python 3 for complete workflow logic.
+* MongoDB as the main database for scan results, audit logs, and authentication. (Replaces SQLite)
+Web Dashboard
+* Streamlit to create a simple, interactive frontend dashboard.
+Containerization
+* Docker for packaging, deployment, and scaling.
+Edge Device
+* ESP32 / Raspberry Pi for on-site IC scanning and inferencing.
+
+DATA FLOW
+1. Captured IC Image
+2. OCR Engine
+3. Extracted Text
+4. Web Scraper for OEM Data
+5. Comparison & Scoring
+6. Saved to MongoDB
+7. Sent to Dashboard
+
+FEASIBILITY & VIABILITY
+Technological Feasibility
+Uses mature and widely available technologies (OCR, CV, scrapers).
+Market Demand
+Electronics industry loses billions yearly due to fake ICs — strong market need.
+Sustainability
+Adds long-term value to QA processes, improving trust and reliability.
+Resource Viability
+Team possesses required AI, CV, and hardware skills.
+Regulatory Compliance
+Supports traceability and counterfeit prevention standards.
+Economic Viability
+Low-cost model saves money by preventing failures and production recalls.
+
+Key Challenges & Solutions
+(In the PPT but content not given, so I kept the section header as-is.)
+
+IMPACT & BENEFITS
+(Same — details not included in file, keeping section header.)
+
+RESEARCH & REFERENCES
+Core Technology
+* OpenCV – Image acquisition & preprocessing
+* Tesseract – OCR text extraction
+* PyMuPDF – Parsing PDF datasheets
+* BeautifulSoup – Web scraping
+Industry Insights
+* IEEE Spectrum – “The Fight Against Fake Chips”
+* IEEE paper on semiconductor counterfeit inspection
+
+✅ PROMPT TO TEACH OTHERS ABOUT YOUR PROJECT
+(Use this to train juniors, team members, or another AI. Very powerful.)
+
+📌 Project Teaching Prompt (Updated for MongoDB)
+Teach me about the project “AuthentiChip – Automated Optical Inspection for IC Marking Verification”. Explain it as if I am a beginner, covering the following points clearly:
+1. What problem counterfeit ICs create in the electronics industry
+2. What AuthentiChip does and how it automates verification using OCR and AI
+3. How the system uses:
+    * OpenCV for image preprocessing
+    * PyTorch for GAN-based anomaly detection
+    * FastAPI to serve the AI model
+    * BeautifulSoup & PyMuPDF for datasheet web scraping
+    * MongoDB for storing scan results and authenticity logs
+    * Streamlit for dashboard
+4. How the edge model works on Raspberry Pi/ESP32
+5. How the “Cryptographic Component Passport” ensures tamper-proof traceability
+6. Why the system is unique (GAN scoring, anomaly detection, microservices, edge inference)
+7. The full workflow from scanning → OCR → datasheet fetch → comparison → score → result storage
+8. Real-world use cases in factories and QA labs
+
+
+
+
+To impress the judges, your frontend needs to look like a piece of High-Performance Industrial HMI (Human-Machine Interface) software. It should not look like a standard "website." It needs to scream efficiency, speed, and clarity. Since you have no live feed, your UI must communicate state effectively so the user never feels "blind" while the camera captures and processes. 1. The Core Concept: "Kiosk Mode" vs. "Dashboard Mode" Don't try to cram everything onto one screen. Use a Dual-Mode Architecture: * The Inspection Station (Kiosk Mode): This is where the worker spends 99% of their time. It is distraction-free, high-contrast, and designed for rapid repetition. * The Operator Dashboard (Slide-out/Secondary): This is for checking stats and submitting daily reports. 2. The Inspection Station Flow (Kiosk Mode) Since you are using a relay-based flash, the user experience is "Trigger -> Flash -> Result." Here is the suggested state flow: State A: The "Ready" Screen (Idle) * Visual: A massive, pulsating button in the center labeled "SCAN IC" (or physical spacebar trigger). * Visual Guide: A static, high-quality outline or semi-transparent image of a "perfect" IC overlaying the center. This tells the worker exactly where to place the chip since there is no live video feed. * Instruction: "Place IC in Jig & Press Scan." State B: The "Flash" Sequence (Critical for UX) * The Problem: Without a live feed, the screen feels dead between the click and the result. * The Solution: Fake the "Flash" on the UI. * User clicks "Scan." * UI Action: The screen flashes white for 100ms (simulating the physical flash). * Audio: Play a mechanical "shutter" sound (satisfying feedback). * Transition: Immediately show a "Processing..." loader. Do not just show a spinning circle. Show a "Scanning..." animation (e.g., a laser line moving over a chip icon) to imply intelligent analysis is happening. State C: The "Verdict" Screen (The Money Shot) * Design: Split the screen 50/50. * Left: The photo you just took. Overlay bounding boxes on the detected text/defects (Green box for good text, Red box for scratches/anomalies). * Right: A massive, unambiguous Status Card. * GENUINE: Bright Green Background. Large Checkmark Icon. Text: "PASS / GENUINE". * FAKE: High-Contrast Red Background. Warning Icon. Text: "FAIL / COUNTERFEIT". * Reason: "Reason: Texture Anomaly (Confidence: 98%)" or "Reason: Wrong Part Number." * Call to Action: A big "NEXT SCAN" button (auto-focused so they can just hit Enter). 3. Navigation & Worker Dashboard Recommendation: Use a Collapsible Sidebar (Left) for the Worker Dashboard. * Why? The inspection screen must be full-width to maximize the image detail. The dashboard is secondary. * Interaction: A "Hamburger" menu icon in the top-left corner toggles the sidebar. Sidebar Content (The "Worker Dashboard") When the worker opens the sidebar, they see their "Shift Stats" without leaving the inspection page. * Profile Card: Photo, Name, Shift ID. * Shift Stats (Live): * Total Scanned: 142 * Pass Rate: 94% * Fakes Found: 3 (Make this a clickable number to see a gallery of today's fakes). * Tools: * "Report Issue" (Broken Jig, Lighting failure). * "End Shift / Submit Report." The "Daily Report" Page This should be a separate page (or a modal) triggered from the sidebar. * Auto-Fill: The software knows what they did. Don't make them type numbers. * Auto-filled: Date, Time, Operator Name, Total Scanned, Pass/Fail Count. * User Input: * Anomalies Note: "Lot #45 had consistently bad printing." * Jig Condition: "Okay" / "Needs Cleaning." * Submit Button: Sends a JSON payload to your Supervisor Dashboard. 4. Visual Design "Cheat Sheet" for Judges To make it look "High Impression" (Industrial & Professional): * Dark Mode Default: Reduces eye strain for operators working long shifts. Use a dark slate grey (#1e293b) background, not pitch black. * Color Coding (Accessibility Standard): * Pass: Emerald Green (#10b981). * Fail: Rose Red (#f43f5e). * Action Buttons: Blue/Primary (#3b82f6). * Typography: Use a Monospaced Font (like Roboto Mono or JetBrains Mono) for all data (Part Numbers, Lot Codes, Confidence Scores). It looks technical and engineered. 5. Summary of Pages/Views You essentially need 3 Views for the Worker Frontend: * Inspection View (Main): The Kiosk (Ready -> Scan -> Result). * Gallery View (Pop-up): "Show me the last 10 scans" (useful if they accidentally skipped one). * End-of-Shift Report View: Simple form for submission. Pro-Tip for the Demo: Add a "Demo Mode" toggle in the settings. When active, pressing scan doesn't actually trigger the relay/camera but instantly loads a pre-saved "Fake" or "Genuine" image sequence. This ensures your presentation is flawless even if the hardware glitches on stage.
+
+
+
+
