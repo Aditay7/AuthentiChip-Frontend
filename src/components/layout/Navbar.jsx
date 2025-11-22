@@ -3,7 +3,7 @@ import { Cpu, History, BarChart3, FileText } from 'lucide-react'
 
 const links = [
   { to: '/', label: 'Dashboard', icon: Cpu },
-  { to: '/gallery', label: 'History', icon: History },
+  { to: '/history', label: 'History', icon: History },
   { to: '/report', label: 'Reports', icon: FileText },
   // Suggestion for future page; route can be added later
   { to: '/analytics', label: 'Analytics', icon: BarChart3, comingSoon: true },
@@ -32,9 +32,9 @@ export default function Navbar() {
               to={comingSoon ? '#' : to}
               className={({ isActive }) =>
                 [
-                  'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors',
+                  'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors ',
                   isActive && !comingSoon
-                    ? 'bg-primary text-white'
+                    ? ' text-white shadow-xl shadow-black-500/50  text-white'
                     : 'text-slate-700 hover:bg-slate-100',
                   comingSoon && 'opacity-60 cursor-default',
                 ]
