@@ -60,12 +60,12 @@ export default function HistoryPage() {
   React.useEffect(() => setPage(1), [query]);
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-hmi-bg min-h-screen transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-2xl font-semibold mb-4">Inspection History</h1>
+        <h1 className="text-2xl font-semibold mb-4 text-text-primary">Inspection History</h1>
 
         {/* Box that contains the horizontally-scrollable table only */}
-        <div className="border rounded-lg bg-white shadow-sm">
+        <div className="border rounded-lg bg-bg-card shadow-sm">
           <div className="p-3 border-b flex items-center justify-between gap-4">
             {/* LEFT: Search input */}
             <div className="flex items-center gap-2">
@@ -73,18 +73,18 @@ export default function HistoryPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by part number or id"
-                className="px-3 py-2 border rounded-md text-sm w-64"
+                className="px-3 py-2 border rounded-md text-sm w-64 bg-bg-panel text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <button
                 onClick={() => setQuery("")}
-                className="px-3 py-2 text-sm bg-gray-100 rounded-md border"
+                className="px-3 py-2 text-sm bg-bg-panel text-text-secondary rounded-md border hover:bg-bg-primary transition-colors"
               >
                 Clear
               </button>
             </div>
 
             {/* RIGHT: info */}
-            <div className="text-xs text-gray-500">Page {page} • {filtered.length} records</div>
+            <div className="text-xs text-text-muted">Page {page} • {filtered.length} records</div>
           </div>
 
           {/* Constrained box: vertical height fixed; horizontal overflow allowed inside */}
@@ -95,13 +95,13 @@ export default function HistoryPage() {
                 {/* Inner wrapper ensures table can grow horizontally and cause inner scrollbar */}
                 <div className="min-w-[1100px]">
                   <table className="w-full text-left table-auto">
-                    <thead className="bg-gray-100 sticky top-0">
+                    <thead className="bg-bg-panel sticky top-0">
                       <tr>
                         {/* First row: show only keys */}
                         {KEYS.map((k) => (
                           <th
                             key={k}
-                            className="px-4 py-3 text-xs font-medium text-gray-700 uppercase tracking-wider border-r"
+                            className="px-4 py-3 text-xs font-medium text-text-secondary uppercase tracking-wider border-r"
                           >
                             {k}
                           </th>
@@ -110,26 +110,25 @@ export default function HistoryPage() {
                     </thead>
                     <tbody>
                       {pageItems.map((row) => (
-                        <tr key={row.id} className="even:bg-white odd:bg-gray-50">
-                          <td className="px-4 py-3 border-r">{row.id}</td>
-                          <td className="px-4 py-3 border-r">{row.part_number}</td>
-                          <td className="px-4 py-3 border-r break-words max-w-[280px]">{row.original_url}</td>
+                        <tr key={row.id} className="even:bg-bg-card odd:bg-bg-panel hover:bg-bg-primary transition-colors">
+                          <td className="px-4 py-3 border-r text-text-primary">{row.id}</td>
+                          <td className="px-4 py-3 border-r text-text-primary">{row.part_number}</td>
+                          <td className="px-4 py-3 border-r break-words max-w-[280px] text-text-secondary">{row.original_url}</td>
                           <td className="px-4 py-3 border-r break-words max-w-[280px]">
                             <a
                               href={row.preview_url}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-sm text-blue-600 underline"
+                              className="text-sm text-accent hover:text-accent-hover underline"
                             >
                               Preview
                             </a>
                           </td>
-                          <td className="px-4 py-3 border-r">{new Date(row.timestamp).toLocaleString()}</td>
+                          <td className="px-4 py-3 border-r text-text-secondary">{new Date(row.timestamp).toLocaleString()}</td>
                           <td className="px-4 py-3 border-r">
                             <span
-                              className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                row.decision === "PASS" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                              }`}
+                              className={`px-2 py-1 rounded-full text-xs font-medium ${row.decision === "PASS" ? "bg-pass/10 text-pass" : "bg-fail/10 text-fail"
+                                }`}
                             >
                               {row.decision}
                             </span>
@@ -138,13 +137,13 @@ export default function HistoryPage() {
                             {row.reasons.length ? (
                               <div className="flex flex-wrap gap-2">
                                 {row.reasons.map((r) => (
-                                  <span key={r} className="text-xs bg-yellow-100 px-2 py-1 rounded">
+                                  <span key={r} className="text-xs bg-chip-review/10 text-chip-review px-2 py-1 rounded">
                                     {r}
                                   </span>
                                 ))}
                               </div>
                             ) : (
-                              <span className="text-xs text-gray-400">—</span>
+                              <span className="text-xs text-text-muted">—</span>
                             )}
                           </td>
                         </tr>
@@ -153,7 +152,7 @@ export default function HistoryPage() {
                       {/* show placeholder if no items */}
                       {pageItems.length === 0 && (
                         <tr>
-                          <td colSpan={KEYS.length} className="px-4 py-6 text-center text-gray-500">
+                          <td colSpan={KEYS.length} className="px-4 py-6 text-center text-text-muted">
                             No records found.
                           </td>
                         </tr>
@@ -167,19 +166,19 @@ export default function HistoryPage() {
 
           {/* footer */}
           <div className="p-3 border-t flex items-center justify-between">
-            <div className="text-sm text-gray-600">Scroll inside the box to view more columns — page stays fixed.</div>
+            <div className="text-sm text-text-secondary">Scroll inside the box to view more columns — page stays fixed.</div>
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrev}
                 disabled={page === 1}
-                className="px-3 py-1 rounded border bg-white disabled:opacity-40"
+                className="px-3 py-1 rounded border bg-bg-panel text-text-primary disabled:opacity-40 hover:bg-bg-card transition-colors"
               >
                 Prev
               </button>
               <button
                 onClick={handleNext}
                 disabled={page === totalPages}
-                className="px-3 py-1 rounded border bg-white disabled:opacity-40"
+                className="px-3 py-1 rounded border bg-bg-panel text-text-primary disabled:opacity-40 hover:bg-bg-card transition-colors"
               >
                 Next
               </button>

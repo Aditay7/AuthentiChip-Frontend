@@ -1,42 +1,45 @@
 import { NavLink } from 'react-router-dom'
-import { Cpu, History, BarChart3, FileText } from 'lucide-react'
+import { Cpu, History, BarChart3, ShieldCheck } from 'lucide-react'
+import ThemeToggle from '../ThemeToggle'
 
 const links = [
   { to: '/', label: 'Dashboard', icon: Cpu },
   { to: '/history', label: 'History', icon: History },
-  { to: '/report', label: 'Reports', icon: FileText },
-  // Suggestion for future page; route can be added later
-  { to: '/analytics', label: 'Analytics', icon: BarChart3, comingSoon: true },
 ]
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-            <Cpu className="w-5 h-5" />
+    <header className="sticky top-0 z-50 border-b border-border-color glass-effect backdrop-blur-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        {/* Logo Section */}
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <div className="h-12 w-12 rounded-2xl gradient-bg flex items-center justify-center shadow-lg">
+              <ShieldCheck className="w-6 h-6 text-white" />
+            </div>
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-pass rounded-full border-2 border-bg-card animate-pulse"></div>
           </div>
           <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+            <p className="text-xs font-bold tracking-[0.2em] text-text-primary uppercase">
               AuthentiChip
             </p>
-            <p className="text-sm text-slate-800">Optical IC Verification</p>
+            <p className="text-sm font-medium text-text-secondary">IC Counterfeit Detection</p>
           </div>
         </div>
 
-        <nav className="flex items-center gap-4 text-sm">
+        {/* Navigation */}
+        <nav className="flex items-center gap-2">
           {links.map(({ to, label, icon: Icon, comingSoon }) => (
             <NavLink
               key={to}
               to={comingSoon ? '#' : to}
               className={({ isActive }) =>
                 [
-                  'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors ',
+                  'inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-base font-semibold',
                   isActive && !comingSoon
-                    ? ' text-white shadow-xl shadow-black-500/50  text-white'
-                    : 'text-slate-700 hover:bg-slate-100',
-                  comingSoon && 'opacity-60 cursor-default',
+                    ? 'bg-primary text-white shadow-md'
+                    : 'text-text-secondary hover:bg-bg-panel hover:text-text-primary',
+                  comingSoon && 'opacity-50 cursor-not-allowed',
                 ]
                   .filter(Boolean)
                   .join(' ')
@@ -45,12 +48,15 @@ export default function Navbar() {
               <Icon className="w-4 h-4" />
               <span>{label}</span>
               {comingSoon && (
-                <span className="ml-1 text-[10px] uppercase tracking-wide text-slate-400">
+                <span className="ml-1 text-[10px] uppercase tracking-wide text-text-muted bg-bg-panel px-1.5 py-0.5 rounded">
                   Soon
                 </span>
               )}
             </NavLink>
           ))}
+          <div className="ml-4 pl-4 border-l border-border-color">
+            <ThemeToggle />
+          </div>
         </nav>
       </div>
     </header>

@@ -27,12 +27,12 @@ const OverallStatusCard = ({ result }) => {
     <motion.div
       initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      className={`w-full rounded-2xl p-8 flex flex-col items-center justify-center ${
+      className={`w-full rounded-2xl p-8 flex flex-col items-center justify-center transition-all ${
         status === 'GENUINE'
-          ? 'bg-pass/20 border-2 border-pass'
+          ? 'bg-pass/10 border-2 border-pass'
           : status === 'FAKE'
-          ? 'bg-fail/20 border-2 border-fail'
-          : 'bg-primary/20 border-2 border-primary'
+          ? 'bg-fail/10 border-2 border-fail'
+          : 'bg-chip-review/10 border-2 border-chip-review'
       }`}
     >
       {/* Icon */}
@@ -71,7 +71,7 @@ const OverallStatusCard = ({ result }) => {
         className="w-full mb-6"
       >
         <div className="flex items-center justify-between mb-2">
-          <span className="text-white/60 text-sm">Overall Confidence</span>
+          <span className="text-text-muted text-sm">Overall Confidence</span>
           <span className={`font-mono font-bold text-lg ${
             statusColor === 'pass' ? 'text-pass' : 
             statusColor === 'fail' ? 'text-fail' : 
@@ -80,7 +80,7 @@ const OverallStatusCard = ({ result }) => {
             {(confidence * 100).toFixed(1)}%
           </span>
         </div>
-        <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
+        <div className="w-full h-3 bg-bg-panel rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${confidence * 100}%` }}
@@ -102,8 +102,8 @@ const OverallStatusCard = ({ result }) => {
           transition={{ delay: 0.6 }}
           className="text-center"
         >
-          <p className="text-white/80 text-lg mb-2">Primary Failure Reason:</p>
-          <p className="text-white font-semibold text-xl">{reason}</p>
+          <p className="text-text-secondary text-lg mb-2">Primary Failure Reason:</p>
+          <p className="text-text-primary font-semibold text-xl">{reason}</p>
         </motion.div>
       )}
     </motion.div>

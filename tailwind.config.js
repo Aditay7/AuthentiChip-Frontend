@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: ['class', '[data-theme="dark"]'],
   content: [
     "./index.html",
     "./src/**/*.{js,jsx}",
@@ -7,18 +8,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Light, eye-catching industrial palette
-        'hmi-bg': '#f3f4f6', // Light gray page background
-        'bg-primary': '#f9fafb',
-        'bg-panel': '#ffffff',
-        'bg-card': '#ffffff',
-        'pass': '#16a34a', // Green
-        'fail': '#dc2626', // Red
-        'primary': '#2563eb', // Blue
-        'chip-pass': '#16a34a',
-        'chip-fail': '#dc2626',
-        'chip-review': '#0ea5e9',
-        'muted': '#6b7280',
+        // Theme-aware colors using CSS variables
+        'hmi-bg': 'var(--hmi-bg)',
+        'bg-primary': 'var(--bg-primary)',
+        'bg-panel': 'var(--bg-panel)',
+        'bg-card': 'var(--bg-card)',
+        'text-primary': 'var(--text-primary)',
+        'text-secondary': 'var(--text-secondary)',
+        'text-muted': 'var(--text-muted)',
+        'border-color': 'var(--border-color)',
+        'pass': 'var(--pass)',
+        'fail': 'var(--fail)',
+        'primary': 'var(--primary)',
+        'chip-pass': 'var(--chip-pass)',
+        'chip-fail': 'var(--chip-fail)',
+        'chip-review': 'var(--chip-review)',
+        'muted': 'var(--muted)',
+        'accent': 'var(--accent)',
+        'accent-hover': 'var(--accent-hover)',
       },
       fontFamily: {
         'mono': ['JetBrains Mono', 'Roboto Mono', 'monospace'],

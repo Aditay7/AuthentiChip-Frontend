@@ -1,6 +1,9 @@
 import { create } from 'zustand'
 
 const useAppStore = create((set) => ({
+  // Theme
+  theme: localStorage.getItem('authentichip-theme') || 'light',
+  
   // Inspection state
   isScanning: false,
   scanResult: null,
@@ -27,6 +30,11 @@ const useAppStore = create((set) => ({
   scanHistory: [],
   
   // Actions
+  setTheme: (theme) => {
+    set({ theme })
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('authentichip-theme', theme)
+  },
   setScanning: (isScanning) => set({ isScanning }),
   setScanResult: (result) => set({ scanResult: result }),
   setCapturedImage: (image) => set({ capturedImage: image }),

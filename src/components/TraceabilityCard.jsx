@@ -20,17 +20,20 @@ const TraceabilityCard = ({ traceability }) => {
       transition={{ delay: 0.4 }}
       className="card"
     >
-      <h3 className="text-lg font-semibold mb-4 text-slate-900">Traceability & Session Info</h3>
+      <div>
+        <p className="text-xs uppercase tracking-[0.18em] text-text-muted mb-1">Traceability</p>
+        <h3 className="text-lg font-semibold mb-4 text-text-primary">Session Info</h3>
+      </div>
       
       <div className="space-y-4">
         {/* Inspection ID */}
         {traceability.inspection_id && (
           <div>
-            <div className="flex items-center justify-between mb-1 text-xs uppercase tracking-[0.18em] text-slate-500">
+            <div className="flex items-center justify-between mb-1 text-xs uppercase tracking-[0.18em] text-text-muted">
               <span>Inspection ID</span>
               <button
                 onClick={() => copyToClipboard(traceability.inspection_id)}
-                className="text-primary hover:text-primary/80 transition-colors"
+                className="text-primary hover:text-accent-hover transition-colors"
               >
                 {copied ? (
                   <CheckCircle2 className="w-4 h-4" />
@@ -39,7 +42,7 @@ const TraceabilityCard = ({ traceability }) => {
                 )}
               </button>
             </div>
-            <p className="font-mono text-sm text-slate-900 break-all">
+            <p className="font-mono text-sm text-text-primary break-all">
               {traceability.inspection_id}
             </p>
           </div>
@@ -48,8 +51,8 @@ const TraceabilityCard = ({ traceability }) => {
         {/* Timestamp */}
         {traceability.timestamp && (
           <div>
-            <span className="text-xs uppercase tracking-[0.18em] text-slate-500">Timestamp</span>
-            <p className="font-mono text-sm text-slate-900">
+            <span className="text-xs uppercase tracking-[0.18em] text-text-muted">Timestamp</span>
+            <p className="font-mono text-sm text-text-primary">
               {new Date(traceability.timestamp).toLocaleString()}
             </p>
           </div>
@@ -58,8 +61,8 @@ const TraceabilityCard = ({ traceability }) => {
         {/* Line / Station ID */}
         {traceability.station_id && (
           <div>
-            <span className="text-xs uppercase tracking-[0.18em] text-slate-500">Station ID</span>
-            <p className="font-mono text-sm text-slate-900">
+            <span className="text-xs uppercase tracking-[0.18em] text-text-muted">Station ID</span>
+            <p className="font-mono text-sm text-text-primary">
               {traceability.station_id}
             </p>
           </div>
@@ -68,10 +71,10 @@ const TraceabilityCard = ({ traceability }) => {
         {/* Image References */}
         {traceability.image_references && (
           <div>
-            <span className="text-xs uppercase tracking-[0.18em] text-slate-500 mb-2 block">
+            <span className="text-xs uppercase tracking-[0.18em] text-text-muted mb-2 block">
               Image References
             </span>
-            <div className="space-y-1 text-xs text-slate-700">
+            <div className="space-y-1 text-xs text-text-secondary">
               {traceability.image_references.captured_image_id && (
                 <div>
                   <span className="font-semibold">Captured:</span>{' '}
@@ -103,8 +106,8 @@ const TraceabilityCard = ({ traceability }) => {
         {/* Rule Source Reference */}
         {traceability.rule_source_reference && (
           <div>
-            <span className="text-xs uppercase tracking-[0.18em] text-slate-500">Rule Source</span>
-            <p className="font-mono text-sm text-slate-900">
+            <span className="text-xs uppercase tracking-[0.18em] text-text-muted">Rule Source</span>
+            <p className="font-mono text-sm text-text-primary">
               {traceability.rule_source_reference.rule_id || 'N/A'}
             </p>
           </div>
@@ -112,27 +115,27 @@ const TraceabilityCard = ({ traceability }) => {
 
         {/* Operator Override */}
         {traceability.operator_override && (
-          <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+          <div className="p-3 rounded-lg bg-bg-panel border border-border-color">
             <div className="flex items-center gap-2 mb-2">
-              <AlertCircle className="w-4 h-4 text-slate-500" />
-              <span className="text-xs uppercase tracking-[0.18em] text-slate-500">
+              <AlertCircle className="w-4 h-4 text-text-muted" />
+              <span className="text-xs uppercase tracking-[0.18em] text-text-muted">
                 Operator Override
               </span>
             </div>
             <div className="space-y-1 text-sm">
               <div className="text-sm">
-                <span className="text-slate-600">Status: </span>
+                <span className="text-text-muted">Status: </span>
                 <span className={`font-semibold ${
                   traceability.operator_override.override_status === 'NONE'
-                    ? 'text-slate-800' : 'text-primary'
+                    ? 'text-text-primary' : 'text-primary'
                 }`}>
                   {traceability.operator_override.override_status}
                 </span>
               </div>
               {traceability.operator_override.operator_comments && (
                 <div className="text-sm">
-                  <span className="text-slate-600">Comments: </span>
-                  <span className="text-slate-800">
+                  <span className="text-text-muted">Comments: </span>
+                  <span className="text-text-secondary">
                     {traceability.operator_override.operator_comments}
                   </span>
                 </div>

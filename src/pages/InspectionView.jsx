@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Sidebar from '../components/Sidebar'
+
 import ScanButton from '../components/ScanButton'
 import OverallStatusCard from '../components/OverallStatusCard'
 import BranchACard from '../components/BranchACard'
@@ -39,8 +39,8 @@ const InspectionView = () => {
     return {
       overall_status: isGenuine ? 'GENUINE' : 'FAKE',
       overall_confidence_score: isGenuine ? 0.95 : 0.87,
-      primary_failure_reason: isGenuine 
-        ? null 
+      primary_failure_reason: isGenuine
+        ? null
         : 'Texture inconsistency (possible blacktopping)',
       branch_a: {
         result: isGenuine ? 'PASS' : 'FAIL',
@@ -231,7 +231,7 @@ const InspectionView = () => {
 
   return (
     <div className="min-h-screen bg-hmi-bg relative overflow-hidden">
-      <Sidebar />
+
 
       {/* Flash Effect */}
       <AnimatePresence>
@@ -261,16 +261,16 @@ const InspectionView = () => {
                 {/* Left: Image container */}
                 <div
                   ref={containerRef}
-                  className="aspect-video rounded-2xl border-2 border-dashed border-slate-300 bg-white flex flex-col items-center justify-center text-center px-8 relative overflow-hidden"
+                  className="aspect-video rounded-2xl border-2 border-dashed border-border-color bg-bg-card flex flex-col items-center justify-center text-center px-8 relative overflow-hidden transition-colors"
                 >
                   {!selectedImage ? (
                     <div className="space-y-3">
-                      <h2 className="text-2xl font-semibold text-slate-900">Upload IC Image</h2>
-                      <p className="text-sm text-slate-500">
-                        Use the button below to pick an image from your computer. We’ll run the mock
+                      <h2 className="text-2xl font-semibold text-text-primary">Upload IC Image</h2>
+                      <p className="text-sm text-text-secondary">
+                        Use the button below to pick an image from your computer. We'll run the mock
                         analysis once you press Scan.
                       </p>
-                      <p className="text-xs text-slate-400 uppercase tracking-[0.2em]">
+                      <p className="text-xs text-text-muted uppercase tracking-[0.2em]">
                         Supported: JPG, PNG, HEIC
                       </p>
                     </div>
@@ -305,21 +305,21 @@ const InspectionView = () => {
                               return newZ
                             })
                           }}
-                          className="px-3 py-1 rounded-full bg-slate-900/70 text-white text-sm"
+                          className="px-3 py-1.5 rounded-lg bg-bg-primary/90 backdrop-blur-sm border border-border-color text-text-primary hover:bg-bg-panel transition-colors text-sm font-medium shadow-md"
                         >
                           −
                         </button>
                         <button
                           type="button"
                           onClick={() => setZoom((z) => Math.min(3, +(z + 0.1).toFixed(2)))}
-                          className="px-3 py-1 rounded-full bg-slate-900/70 text-white text-sm"
+                          className="px-3 py-1.5 rounded-lg bg-bg-primary/90 backdrop-blur-sm border border-border-color text-text-primary hover:bg-bg-panel transition-colors text-sm font-medium shadow-md"
                         >
                           +
                         </button>
                         <button
                           type="button"
                           onClick={clearSelectedImage}
-                          className="px-3 py-1 rounded-full bg-red-500/80 text-white text-sm"
+                          className="px-3 py-1.5 rounded-lg bg-fail/90 backdrop-blur-sm border border-fail/50 text-white hover:bg-fail transition-colors text-sm font-medium shadow-md"
                         >
                           Remove
                         </button>
@@ -364,7 +364,7 @@ const InspectionView = () => {
               {/* Top: Overall Status & Image */}
               <section className="grid grid-cols-1 lg:grid-cols-[3fr,2fr] gap-6 items-stretch">
                 {/* Left: Captured Image */}
-                <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-white aspect-video flex items-center justify-center">
+                <div className="relative rounded-2xl overflow-hidden border border-border-color bg-bg-card aspect-video flex items-center justify-center transition-colors">
                   {capturedImage && (
                     <img
                       src={capturedImage}
@@ -398,14 +398,14 @@ const InspectionView = () => {
               >
                 <button
                   onClick={handleNextScan}
-                  className="px-12 py-4 bg-primary hover:bg-primary/90 rounded-lg text-white font-bold text-xl transition-colors"
+                  className="btn-primary px-12 py-4 rounded-lg text-white font-bold text-xl"
                   autoFocus
                 >
                   NEXT SCAN
                 </button>
               </motion.div>
-              <p className="text-white/60 text-sm text-center">
-                Press <kbd className="px-2 py-1 bg-white/10 rounded">ENTER</kbd> for next scan
+              <p className="text-text-muted text-sm text-center">
+                Press <kbd className="px-2 py-1 bg-bg-panel border border-border-color rounded text-text-primary">ENTER</kbd> for next scan
               </p>
             </motion.div>
           )}

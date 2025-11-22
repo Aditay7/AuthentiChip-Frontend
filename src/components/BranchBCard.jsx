@@ -15,8 +15,8 @@ const BranchBCard = ({ branchB }) => {
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Branch B</p>
-          <h3 className="text-lg font-semibold text-slate-900">Data & Marking Verification</h3>
+          <p className="text-xs uppercase tracking-[0.18em] text-text-muted mb-1">Branch B</p>
+          <h3 className="text-lg font-semibold text-text-primary">Data & Marking Verification</h3>
         </div>
         <div className={`flex items-center gap-2 text-sm ${isPass ? 'text-pass' : 'text-fail'}`}>
           {isPass ? (
@@ -30,8 +30,8 @@ const BranchBCard = ({ branchB }) => {
 
       {/* B1: OCR & Text Verification */}
       {branchB.ocr_verification && (
-        <section className="p-4 rounded-xl bg-slate-50 space-y-3">
-          <h4 className="font-semibold text-sm flex items-center gap-2 text-slate-900">
+        <section className="p-4 rounded-xl bg-bg-panel border border-border-color space-y-3">
+          <h4 className="font-semibold text-sm flex items-center gap-2 text-text-primary">
             <FileText className="w-4 h-4" />
             OCR & Text Verification
           </h4>
@@ -40,24 +40,24 @@ const BranchBCard = ({ branchB }) => {
           <div className="space-y-2 mb-3 text-sm">
             {branchB.ocr_verification.extracted_fields?.part_number && (
               <div>
-                <span className="text-slate-500">Part Number: </span>
-                <span className="font-mono font-semibold text-slate-900">
+                <span className="text-text-muted">Part Number: </span>
+                <span className="font-mono font-semibold text-text-primary">
                   {branchB.ocr_verification.extracted_fields.part_number}
                 </span>
               </div>
             )}
             {branchB.ocr_verification.extracted_fields?.manufacturer && (
               <div>
-                <span className="text-slate-500">Manufacturer: </span>
-                <span className="font-mono font-semibold text-slate-900">
+                <span className="text-text-muted">Manufacturer: </span>
+                <span className="font-mono font-semibold text-text-primary">
                   {branchB.ocr_verification.extracted_fields.manufacturer}
                 </span>
               </div>
             )}
             {branchB.ocr_verification.extracted_fields?.lot_code && (
               <div>
-                <span className="text-slate-500">Lot/Date Code: </span>
-                <span className="font-mono font-semibold text-slate-900">
+                <span className="text-text-muted">Lot/Date Code: </span>
+                <span className="font-mono font-semibold text-text-primary">
                   {branchB.ocr_verification.extracted_fields.lot_code}
                 </span>
               </div>
@@ -69,7 +69,7 @@ const BranchBCard = ({ branchB }) => {
             {branchB.ocr_verification.text_match_result && (
               <>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Part Number Match:</span>
+                  <span className="text-text-muted">Part Number Match:</span>
                   <span className={`font-semibold ${
                     branchB.ocr_verification.text_match_result.part_number_match === 'MATCH'
                       ? 'text-pass' : 'text-fail'
@@ -78,7 +78,7 @@ const BranchBCard = ({ branchB }) => {
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Manufacturer Match:</span>
+                  <span className="text-text-muted">Manufacturer Match:</span>
                   <span className={`font-semibold ${
                     branchB.ocr_verification.text_match_result.manufacturer_match === 'MATCH'
                       ? 'text-pass' : 'text-fail'
@@ -87,7 +87,7 @@ const BranchBCard = ({ branchB }) => {
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Lot/Date Format:</span>
+                  <span className="text-text-muted">Lot/Date Format:</span>
                   <span className={`font-semibold ${
                     branchB.ocr_verification.text_match_result.lot_date_format === 'VALID'
                       ? 'text-pass' : 'text-fail'
@@ -99,8 +99,8 @@ const BranchBCard = ({ branchB }) => {
             )}
             {branchB.ocr_verification.ocr_confidence && (
               <div className="flex items-center justify-between mt-2">
-                <span className="text-slate-500">OCR Confidence:</span>
-                <span className="font-mono font-semibold text-slate-900">
+                <span className="text-text-muted">OCR Confidence:</span>
+                <span className="font-mono font-semibold text-text-primary">
                   {(branchB.ocr_verification.ocr_confidence * 100).toFixed(1)}%
                 </span>
               </div>
@@ -111,15 +111,15 @@ const BranchBCard = ({ branchB }) => {
 
       {/* B2: Datasheet & Rule Extraction */}
       {branchB.datasheet_verification && (
-        <section className="p-4 rounded-xl bg-slate-50 space-y-3">
-          <h4 className="font-semibold text-sm flex items-center gap-2 text-slate-900">
+        <section className="p-4 rounded-xl bg-bg-panel border border-border-color space-y-3">
+          <h4 className="font-semibold text-sm flex items-center gap-2 text-text-primary">
             <FileText className="w-4 h-4" />
             Datasheet & Rule Extraction
           </h4>
           
           <div className="space-y-2 mb-3 text-sm">
             <div className="flex items-center justify-between">
-              <span className="text-slate-500">Datasheet Status:</span>
+              <span className="text-text-muted">Datasheet Status:</span>
               <span className={`font-semibold ${
                 branchB.datasheet_verification.datasheet_status === 'FOUND'
                   ? 'text-pass' : 'text-fail'
@@ -131,21 +131,21 @@ const BranchBCard = ({ branchB }) => {
             {branchB.datasheet_verification.oem_source_info && (
               <div className="mt-3 space-y-1">
                 <div>
-                  <span className="text-slate-500 text-sm">OEM: </span>
-                  <span className="font-semibold text-slate-900">
+                  <span className="text-text-muted text-sm">OEM: </span>
+                  <span className="font-semibold text-text-primary">
                     {branchB.datasheet_verification.oem_source_info.oem_name}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-500 text-sm">Title: </span>
-                  <span className="text-slate-800 text-sm">
+                  <span className="text-text-muted text-sm">Title: </span>
+                  <span className="text-text-secondary text-sm">
                     {branchB.datasheet_verification.oem_source_info.datasheet_title}
                   </span>
                 </div>
                 {branchB.datasheet_verification.oem_source_info.version && (
                   <div>
-                    <span className="text-slate-500 text-sm">Version: </span>
-                    <span className="text-slate-800 text-sm">
+                    <span className="text-text-muted text-sm">Version: </span>
+                    <span className="text-text-secondary text-sm">
                       {branchB.datasheet_verification.oem_source_info.version}
                     </span>
                   </div>
@@ -165,11 +165,11 @@ const BranchBCard = ({ branchB }) => {
             )}
 
             {branchB.datasheet_verification.marking_rule_summary && (
-              <div className="mt-3 p-3 rounded-lg bg-white border border-slate-200">
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-500 mb-2 font-semibold">
+              <div className="mt-3 p-3 rounded-lg bg-bg-card border border-border-color">
+                <p className="text-xs uppercase tracking-[0.18em] text-text-muted mb-2 font-semibold">
                   Marking Rules
                 </p>
-                <div className="space-y-1 text-xs text-slate-700">
+                <div className="space-y-1 text-xs text-text-secondary">
                   {branchB.datasheet_verification.marking_rule_summary.expected_package_type && (
                     <div>
                       <span className="font-semibold">Package:</span>{' '}
@@ -192,7 +192,7 @@ const BranchBCard = ({ branchB }) => {
 
             {branchB.datasheet_verification.rule_parsing_status && (
               <div className="flex items-center justify-between mt-2 text-sm">
-                <span className="text-slate-500">Rule Extraction:</span>
+                <span className="text-text-muted">Rule Extraction:</span>
                 <span className={`font-semibold ${
                   branchB.datasheet_verification.rule_parsing_status === 'SUCCESS'
                     ? 'text-pass' : 'text-fail'
@@ -207,15 +207,15 @@ const BranchBCard = ({ branchB }) => {
 
       {/* B3: Layout & Position Check */}
       {branchB.layout_verification && (
-        <section className="p-4 rounded-xl bg-slate-50 space-y-3">
-          <h4 className="font-semibold text-sm mb-1 flex items-center gap-2 text-slate-900">
+        <section className="p-4 rounded-xl bg-bg-panel border border-border-color space-y-3">
+          <h4 className="font-semibold text-sm mb-1 flex items-center gap-2 text-text-primary">
             <AlertCircle className="w-4 h-4" />
             Layout & Position Check
           </h4>
           
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
-              <span className="text-slate-500">Layout Check:</span>
+              <span className="text-text-muted">Layout Check:</span>
               <span className={`font-semibold ${
                 branchB.layout_verification.layout_check_result === 'PASS'
                   ? 'text-pass' : 'text-fail'
@@ -228,16 +228,16 @@ const BranchBCard = ({ branchB }) => {
               <div className="mt-2 space-y-1 text-sm">
                 {branchB.layout_verification.position_deviation.logo_deviation !== undefined && (
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Logo Deviation:</span>
-                    <span className="font-mono text-slate-900">
+                    <span className="text-text-muted">Logo Deviation:</span>
+                    <span className="font-mono text-text-primary">
                       {branchB.layout_verification.position_deviation.logo_deviation.toFixed(1)} px
                     </span>
                   </div>
                 )}
                 {branchB.layout_verification.position_deviation.text_block_deviation !== undefined && (
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Text Block Deviation:</span>
-                    <span className="font-mono text-slate-900">
+                    <span className="text-text-muted">Text Block Deviation:</span>
+                    <span className="font-mono text-text-primary">
                       {branchB.layout_verification.position_deviation.text_block_deviation.toFixed(1)} px
                     </span>
                   </div>
