@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import InspectionView from './pages/InspectionView'
 import GalleryView from './pages/GalleryView'
+import HistoryPage from './pages/History'
 import ReportView from './pages/ReportView'
 import Navbar from './components/layout/Navbar'
 
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<InspectionView />} />
           <Route path="/gallery" element={<GalleryView />} />
           <Route path="/report" element={<ReportView />} />
+          <Route path = "/history" element = {<HistoryPage/>}/>
         </Routes>
       </main>
     </div>

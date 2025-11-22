@@ -26,7 +26,12 @@ const InspectionView = () => {
   const [showFlash, setShowFlash] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
   const [zoom, setZoom] = useState(1)
+  const [pan, setPan] = useState({ x: 0, y: 0 }) // pan offset in px
+  const [isDragging, setIsDragging] = useState(false)
+  const pointerStartRef = useRef({ x: 0, y: 0 })
+  const panStartRef = useRef({ x: 0, y: 0 })
   const fileInputRef = useRef(null)
+  const containerRef = useRef(null)
 
   // Demo mode data - Full structure matching ML response
   const getDemoResult = () => {
@@ -123,6 +128,7 @@ const InspectionView = () => {
     reader.onload = (e) => {
       setSelectedImage(e.target?.result)
       setZoom(1)
+      setPan({ x: 0, y: 0 })
       resetScan()
       setCapturedImage(null)
     }
@@ -132,6 +138,7 @@ const InspectionView = () => {
   const clearSelectedImage = () => {
     setSelectedImage(null)
     setZoom(1)
+    setPan({ x: 0, y: 0 })
     resetScan()
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
@@ -178,6 +185,50 @@ const InspectionView = () => {
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [isScanning, scanResult])
 
+  // Pointer-based dragging handlers
+  const onPointerDown = (e) => {
+    if (zoom <= 1) return // only allow dragging when zoomed
+    // Only left button or touch
+    if (e.pointerType === 'mouse' && e.button !== 0) return
+
+    const containerRect = containerRef.current?.getBoundingClientRect()
+    // store starting pointer coords
+    pointerStartRef.current = { x: e.clientX, y: e.clientY }
+    panStartRef.current = { ...pan }
+    setIsDragging(true)
+
+    // capture pointer so we continue receiving events even if pointer leaves element
+    e.target.setPointerCapture?.(e.pointerId)
+  }
+
+  const onPointerMove = (e) => {
+    if (!isDragging) return
+    const dx = e.clientX - pointerStartRef.current.x
+    const dy = e.clientY - pointerStartRef.current.y
+    setPan({
+      x: panStartRef.current.x + dx,
+      y: panStartRef.current.y + dy,
+    })
+  }
+
+  const endDragging = (e) => {
+    if (!isDragging) return
+    setIsDragging(false)
+    try {
+      e.target.releasePointerCapture?.(e.pointerId)
+    } catch (err) {
+      // ignore if pointerId not captured
+    }
+    // Optionally clamp pan here if you want bounds — currently free pan
+  }
+
+  // Reset pan when zoom goes back to 1
+  useEffect(() => {
+    if (zoom <= 1) {
+      setPan({ x: 0, y: 0 })
+    }
+  }, [zoom])
+
   return (
     <div className="min-h-screen bg-hmi-bg relative overflow-hidden">
       <Sidebar />
@@ -208,7 +259,10 @@ const InspectionView = () => {
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left: Image container */}
-                <div className="aspect-video rounded-2xl border-2 border-dashed border-slate-300 bg-white flex flex-col items-center justify-center text-center px-8 relative overflow-hidden">
+                <div
+                  ref={containerRef}
+                  className="aspect-video rounded-2xl border-2 border-dashed border-slate-300 bg-white flex flex-col items-center justify-center text-center px-8 relative overflow-hidden"
+                >
                   {!selectedImage ? (
                     <div className="space-y-3">
                       <h2 className="text-2xl font-semibold text-slate-900">Upload IC Image</h2>
@@ -225,20 +279,39 @@ const InspectionView = () => {
                       <img
                         src={selectedImage}
                         alt="Selected IC"
-                        className="max-h-full max-w-full object-contain transition-transform"
-                        style={{ transform: `scale(${zoom})` }}
+                        // make image positioned so translate works predictably
+                        className="object-contain absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform touch-none"
+                        // apply pan + zoom via transform
+                        style={{
+                          transform: `translate(calc(-50% + ${pan.x}px), calc(-50% + ${pan.y}px)) scale(${zoom})`,
+                          cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'auto',
+                          // disable pointer events on image when not zoomed? we handle pointer on img so keep enabled
+                        }}
+                        onPointerDown={onPointerDown}
+                        onPointerMove={onPointerMove}
+                        onPointerUp={endDragging}
+                        onPointerCancel={endDragging}
+                        onPointerLeave={endDragging}
+                        draggable={false}
                       />
-                      <div className="absolute top-4 right-4 flex gap-2">
+                      <div className="absolute top-4 right-4 flex gap-2 z-10">
                         <button
                           type="button"
-                          onClick={() => setZoom((z) => Math.max(1, z - 0.1))}
+                          onClick={() => {
+                            setZoom((z) => {
+                              const newZ = Math.max(1, +(z - 0.1).toFixed(2))
+                              // if zoom returns to 1 reset pan
+                              if (newZ <= 1) setPan({ x: 0, y: 0 })
+                              return newZ
+                            })
+                          }}
                           className="px-3 py-1 rounded-full bg-slate-900/70 text-white text-sm"
                         >
                           −
                         </button>
                         <button
                           type="button"
-                          onClick={() => setZoom((z) => Math.min(3, z + 0.1))}
+                          onClick={() => setZoom((z) => Math.min(3, +(z + 0.1).toFixed(2)))}
                           className="px-3 py-1 rounded-full bg-slate-900/70 text-white text-sm"
                         >
                           +
