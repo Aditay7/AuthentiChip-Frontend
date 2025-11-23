@@ -30,7 +30,7 @@ const InspectionView = () => {
   const [isDragging, setIsDragging] = useState(false)
   const pointerStartRef = useRef({ x: 0, y: 0 })
   const panStartRef = useRef({ x: 0, y: 0 })
-  const fileInputRef = useRef(null)
+  // file input ref removed; upload UI moved/visualized into ScanButton
   const containerRef = useRef(null)
 
   // Demo mode data - Full structure matching ML response
@@ -116,6 +116,8 @@ const InspectionView = () => {
     }
   }
 
+  const fileInputRef = useRef(null)
+
   const handleUploadClick = () => {
     fileInputRef.current?.click()
   }
@@ -140,9 +142,6 @@ const InspectionView = () => {
     setZoom(1)
     setPan({ x: 0, y: 0 })
     resetScan()
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
   }
 
   const handleScan = () => {
@@ -174,7 +173,8 @@ const InspectionView = () => {
     const handleKeyPress = (e) => {
       if (e.code === 'Space' && !isScanning && !scanResult) {
         e.preventDefault()
-        handleUploadClick()
+        // Trigger scan (Spacebar acts like pressing the Scan button)
+        handleScan()
       } else if (e.code === 'Enter' && scanResult) {
         e.preventDefault()
         handleNextScan()
@@ -292,7 +292,7 @@ const InspectionView = () => {
                         onPointerUp={endDragging}
                         onPointerCancel={endDragging}
                         onPointerLeave={endDragging}
-                        draggable={false}
+                        draggable={false}fgb
                       />
                       <div className="absolute top-4 right-4 flex gap-2 z-10">
                         <button
@@ -330,18 +330,13 @@ const InspectionView = () => {
 
                 {/* Right: Controls */}
                 <div className="flex flex-col items-center justify-center gap-4">
-                  <button
-                    type="button"
-                    onClick={handleUploadClick}
-                    className="btn-primary px-6 py-3 rounded-full font-semibold transition-colors"
-                  >
-                    Upload Image
-                  </button>
+                  {/* Upload Image button removed — upload UI moved/visualized inside Scan IC circle */}
                   {!isScanning ? (
                     <ScanButton
                       onClick={handleScan}
+                      onUpload={handleUploadClick}
                       disabled={!selectedImage}
-                      isScanning={false}
+                      isScanning={isScanning}
                     />
                   ) : (
                     <ProcessingLoader />

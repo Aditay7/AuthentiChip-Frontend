@@ -6,6 +6,8 @@ const ThemeToggle = () => {
   const { theme, setTheme } = useAppStore()
   const isDark = theme === 'dark'
 
+  
+
   const toggleTheme = () => {
     const newTheme = isDark ? 'light' : 'dark'
     setTheme(newTheme)
