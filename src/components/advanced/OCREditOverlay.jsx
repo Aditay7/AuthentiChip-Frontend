@@ -21,7 +21,7 @@ export default function OCREditOverlay({ open, onOpenChange, fields, onSave }) {
         <form className="space-y-4" onSubmit={handleSubmit}>
           {Object.entries(localFields || {}).map(([key, meta]) => (
             <div key={key} className="space-y-1">
-              <div className="flex items-center justify-between text-xs text-white/60">
+              <div className="flex items-center justify-between text-xs text-text-secondary">
                 <span className="uppercase tracking-[0.18em]">{key}</span>
                 {meta.confidence != null && (
                   <span className="font-mono">
@@ -30,7 +30,7 @@ export default function OCREditOverlay({ open, onOpenChange, fields, onSave }) {
                 )}
               </div>
               <input
-                className="w-full rounded-md bg-black/30 border border-white/20 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
+                className="w-full rounded-md bg-bg-panel border border-border-color px-3 py-2 text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary"
                 value={meta.value ?? ''}
                 onChange={(e) => handleChange(key, e.target.value)}
               />
@@ -40,7 +40,7 @@ export default function OCREditOverlay({ open, onOpenChange, fields, onSave }) {
             <button
               type="button"
               onClick={() => onOpenChange(false)}
-              className="px-4 py-2 rounded-md text-sm bg-white/5 hover:bg-white/10"
+              className="px-4 py-2 rounded-md text-sm bg-bg-panel text-text-primary hover:bg-bg-primary border border-border-color"
             >
               Cancel
             </button>

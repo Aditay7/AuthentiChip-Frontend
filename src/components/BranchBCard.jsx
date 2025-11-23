@@ -11,7 +11,7 @@ const BranchBCard = ({ branchB }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="card space-y-4 border border-slate-200"
+      className="card space-y-4 border border-border-color"
     >
       <div className="flex items-center justify-between">
         <div>
@@ -35,7 +35,7 @@ const BranchBCard = ({ branchB }) => {
             <FileText className="w-4 h-4" />
             OCR & Text Verification
           </h4>
-          
+
           {/* Extracted Fields */}
           <div className="space-y-2 mb-3 text-sm">
             {branchB.ocr_verification.extracted_fields?.part_number && (
@@ -70,28 +70,25 @@ const BranchBCard = ({ branchB }) => {
               <>
                 <div className="flex items-center justify-between">
                   <span className="text-text-muted">Part Number Match:</span>
-                  <span className={`font-semibold ${
-                    branchB.ocr_verification.text_match_result.part_number_match === 'MATCH'
+                  <span className={`font-semibold ${branchB.ocr_verification.text_match_result.part_number_match === 'MATCH'
                       ? 'text-pass' : 'text-fail'
-                  }`}>
+                    }`}>
                     {branchB.ocr_verification.text_match_result.part_number_match}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-text-muted">Manufacturer Match:</span>
-                  <span className={`font-semibold ${
-                    branchB.ocr_verification.text_match_result.manufacturer_match === 'MATCH'
+                  <span className={`font-semibold ${branchB.ocr_verification.text_match_result.manufacturer_match === 'MATCH'
                       ? 'text-pass' : 'text-fail'
-                  }`}>
+                    }`}>
                     {branchB.ocr_verification.text_match_result.manufacturer_match}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-text-muted">Lot/Date Format:</span>
-                  <span className={`font-semibold ${
-                    branchB.ocr_verification.text_match_result.lot_date_format === 'VALID'
+                  <span className={`font-semibold ${branchB.ocr_verification.text_match_result.lot_date_format === 'VALID'
                       ? 'text-pass' : 'text-fail'
-                  }`}>
+                    }`}>
                     {branchB.ocr_verification.text_match_result.lot_date_format}
                   </span>
                 </div>
@@ -116,14 +113,13 @@ const BranchBCard = ({ branchB }) => {
             <FileText className="w-4 h-4" />
             Datasheet & Rule Extraction
           </h4>
-          
+
           <div className="space-y-2 mb-3 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-text-muted">Datasheet Status:</span>
-              <span className={`font-semibold ${
-                branchB.datasheet_verification.datasheet_status === 'FOUND'
+              <span className={`font-semibold ${branchB.datasheet_verification.datasheet_status === 'FOUND'
                   ? 'text-pass' : 'text-fail'
-              }`}>
+                }`}>
                 {branchB.datasheet_verification.datasheet_status}
               </span>
             </div>
@@ -193,10 +189,9 @@ const BranchBCard = ({ branchB }) => {
             {branchB.datasheet_verification.rule_parsing_status && (
               <div className="flex items-center justify-between mt-2 text-sm">
                 <span className="text-text-muted">Rule Extraction:</span>
-                <span className={`font-semibold ${
-                  branchB.datasheet_verification.rule_parsing_status === 'SUCCESS'
+                <span className={`font-semibold ${branchB.datasheet_verification.rule_parsing_status === 'SUCCESS'
                     ? 'text-pass' : 'text-fail'
-                }`}>
+                  }`}>
                   {branchB.datasheet_verification.rule_parsing_status}
                 </span>
               </div>
@@ -212,14 +207,13 @@ const BranchBCard = ({ branchB }) => {
             <AlertCircle className="w-4 h-4" />
             Layout & Position Check
           </h4>
-          
+
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-text-muted">Layout Check:</span>
-              <span className={`font-semibold ${
-                branchB.layout_verification.layout_check_result === 'PASS'
+              <span className={`font-semibold ${branchB.layout_verification.layout_check_result === 'PASS'
                   ? 'text-pass' : 'text-fail'
-              }`}>
+                }`}>
                 {branchB.layout_verification.layout_check_result}
               </span>
             </div>

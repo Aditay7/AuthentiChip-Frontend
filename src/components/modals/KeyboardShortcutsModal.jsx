@@ -22,7 +22,7 @@ export default function KeyboardShortcutsModal({ open, onClose }) {
           <button
             type="button"
             onClick={() => onClose(false)}
-            className="text-sm text-white/60 hover:text-white"
+            className="text-sm text-text-muted hover:text-text-primary"
           >
             Esc
           </button>
@@ -42,8 +42,8 @@ export default function KeyboardShortcutsModal({ open, onClose }) {
 function Shortcut({ k, label }) {
   return (
     <div className="flex items-center justify-between gap-4">
-      <dt className="text-white/70">{label}</dt>
-      <dd className="px-2 py-1 rounded bg-white/10 text-xs font-mono">{k}</dd>
+      <dt className="text-text-secondary">{label}</dt>
+      <dd className="px-2 py-1 rounded bg-bg-panel text-xs font-mono text-text-primary">{k}</dd>
     </div>
   )
 }

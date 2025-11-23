@@ -333,8 +333,7 @@ const InspectionView = () => {
                   <button
                     type="button"
                     onClick={handleUploadClick}
-                    className="px-6 py-3 rounded-full bg-slate-900 font-semibold hover:bg-slate-800 transition-colors"
-                    style={{ color: '#ffffff' }}
+                    className="btn-primary px-6 py-3 rounded-full font-semibold transition-colors"
                   >
                     Upload Image
                   </button>
@@ -347,7 +346,7 @@ const InspectionView = () => {
                   ) : (
                     <ProcessingLoader />
                   )}
-                  <p className="text-slate-600 text-sm text-center">
+                  <p className="text-text-secondary text-sm text-center">
                     Select an image first, then press Scan to generate the mock response.
                   </p>
                 </div>

@@ -5,11 +5,11 @@ const ProcessingLoader = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-6">
       <motion.div
-        animate={{ 
+        animate={{
           scale: [1, 1.2, 1],
           opacity: [0.5, 1, 0.5]
         }}
-        transition={{ 
+        transition={{
           duration: 2,
           repeat: Infinity,
           ease: 'easeInOut'
@@ -18,14 +18,14 @@ const ProcessingLoader = () => {
       >
         <Cpu className="w-20 h-20 text-primary" />
       </motion.div>
-      
+
       <div className="text-center">
-        <h3 className="text-2xl font-bold text-white mb-2">Processing...</h3>
-        <p className="text-white/60">Analyzing IC marking</p>
+        <h3 className="text-2xl font-bold text-text-primary mb-2">Processing...</h3>
+        <p className="text-text-secondary">Analyzing IC marking</p>
       </div>
 
       {/* Scanning Animation */}
-      <div className="w-64 h-32 relative overflow-hidden rounded-lg border-2 border-white/20">
+      <div className="w-64 h-32 relative overflow-hidden rounded-lg border-2 border-primary/20">
         <motion.div
           animate={{ y: ['0%', '100%'] }}
           transition={{

@@ -16,26 +16,26 @@ export default function CryptoPassport({ entries }) {
     <section className="card space-y-3">
       <header className="flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-white/50">Traceability</p>
-          <h3 className="text-lg font-semibold">Cryptographic Passport</h3>
+          <p className="text-xs uppercase tracking-[0.2em] text-text-muted">Traceability</p>
+          <h3 className="text-lg font-semibold text-text-primary">Cryptographic Passport</h3>
         </div>
       </header>
       <div className="space-y-2 text-xs font-mono">
         {entries.map((entry, idx) => (
           <div
             key={idx}
-            className="flex items-start justify-between gap-3 rounded-md bg-black/40 px-3 py-2"
+            className="flex items-start justify-between gap-3 rounded-md bg-bg-panel px-3 py-2"
           >
             <div className="space-y-1">
-              <p className="text-white truncate">{entry.hash}</p>
-              <p className="text-white/50">
+              <p className="text-text-primary truncate">{entry.hash}</p>
+              <p className="text-text-secondary">
                 {new Date(entry.timestamp).toLocaleString()} · {entry.location || 'N/A'}
               </p>
             </div>
             <button
               type="button"
               onClick={() => handleCopy(entry.hash)}
-              className="mt-1 rounded-full border border-white/20 p-1.5 hover:bg-white/10"
+              className="mt-1 rounded-full border border-border-color p-1.5 hover:bg-bg-primary text-text-primary"
               aria-label="Copy hash"
             >
               {copied ? (
